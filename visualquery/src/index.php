@@ -68,7 +68,7 @@ ORM::configure('logging', true);
 Flight::set('db', $db);
 Flight::set('dbname', $database);
 
-$stmt = $db->query("SHOW TABLES FROM " . Flight::get('dbname'));
+$stmt = $db->query("SHOW TABLES");
 $data = $stmt->fetchAll(PDO::FETCH_NUM);
 $data = arrayFlatten($data);
 
