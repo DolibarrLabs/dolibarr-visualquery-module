@@ -1,0 +1,15 @@
+# Dolibase Setup Page - pl_PL
+#
+# Copyright (C) 2018 AXeL
+
+Setup = Ustawienia
+Settings = Ustawienia
+Changelog = Dziennik zmian
+About = Informacje o
+Option = Opcja
+Value = Wartość
+NumberingModels = Szablony numerowania
+DocumentModels = Szablony dokumentów
+DocModelAzurDescription = Szablon PDF Azur. Pełny model dokumentu (zalecany szablon)
+DocModelCrabeDescription = Szablon PDF Crabe. Pełny model dokumentu (logo...)
+NoSetupAvailable = Brak dostępnych ustawień.

@@ -1,0 +1,20 @@
+# VISUALQUERY MODULE - fr_FR
+#
+# Copyright (C) 2019 AXeL
+
+#
+# Générique
+#
+VisualQuery = Visual Query
+VisualQueryWithIcon = <i class="fa fa-database fa-fw paddingright"></i>Visual Query
+Module867383850Name = Visual Query
+Module867383850Desc = Navigateur de base de données MySQL avec possibilité de créer des requêtes visuelles pour des personnes non techniques ou des clients.
+VisualQueryLogin = Identifiants de connexion
+Username = Identifiant
+Password = Mot de passe
+ShowPassword = Afficher
+
+#
+# Permissions
+#
+UseVisualQuery = Utiliser Visual Query
