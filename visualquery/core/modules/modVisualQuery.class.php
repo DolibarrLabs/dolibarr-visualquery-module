@@ -38,6 +38,7 @@ class modVisualQuery extends DolibaseModule
 	{
 		global $conf, $dolibarr_main_db_host, $dolibarr_main_db_user, $dolibarr_main_db_pass, $dolibarr_main_db_name;
 
+		// Create config file
 		$config_file = dol_buildpath('visualquery').'/src/config.php';
 
 		if (! file_exists($config_file)) {
@@ -65,6 +66,31 @@ class modVisualQuery extends DolibaseModule
 			// Save config file
 			file_put_contents($config_file, $template);
 			@chmod($config_file, octdec($conf->global->MAIN_UMASK));
+		}
+
+		// Create .htaccess file
+		$htaccess_file = dol_buildpath('visualquery').'/src/.htaccess';
+
+		if (! file_exists($htaccess_file)) {
+			// Read our template in as a string.
+			$file = dol_buildpath('visualquery/tpl/.htaccess.tpl');
+			$template = file_get_contents($file);
+			$keys = array();
+			$data = array();
+			$hooks = array(
+				'visual_query_dir'  => DOL_URL_ROOT.'/custom/visualquery/src'
+			);
+			foreach($hooks as $key => $value) {
+				array_push($keys, '${'. $key .'}');
+				array_push($data, $value);
+			}
+
+			// Replace all of the variables with the variable values.
+			$template = str_replace($keys, $data, $template);
+
+			// Save config file
+			file_put_contents($htaccess_file, $template);
+			@chmod($htaccess_file, octdec($conf->global->MAIN_UMASK));
 		}
 
 		return parent::init($options);
