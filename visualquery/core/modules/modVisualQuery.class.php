@@ -6,6 +6,9 @@ dol_include_once('visualquery/autoload.php');
 // Load Dolibase Module class
 dolibase_include_once('core/class/module.php');
 
+// Load custom lib
+dol_include_once('visualquery/lib/functions.php');
+
 /**
  *	Class to describe and enable module
  */
@@ -36,17 +39,13 @@ class modVisualQuery extends DolibaseModule
 	 */
 	public function init($options = '')
 	{
-		global $conf, $dolibarr_main_db_host, $dolibarr_main_db_user, $dolibarr_main_db_pass, $dolibarr_main_db_name;
+		global $dolibarr_main_db_host, $dolibarr_main_db_user, $dolibarr_main_db_pass, $dolibarr_main_db_name;
 
 		// Create config file
 		$config_file = dol_buildpath('visualquery').'/src/config.php';
 
 		if (! file_exists($config_file)) {
-			// Read our template in as a string.
-			$file = dol_buildpath('visualquery/tpl/config.php');
-			$template = file_get_contents($file);
-			$keys = array();
-			$data = array();
+			$template_file = dol_buildpath('visualquery/tpl/config.php');
 			$hooks = array(
 				'db_host'  => $dolibarr_main_db_host,
 				'db_user'  => $dolibarr_main_db_user,
@@ -55,42 +54,18 @@ class modVisualQuery extends DolibaseModule
 				'username' => 'admin',
 				'password' => 'admin'
 			);
-			foreach($hooks as $key => $value) {
-				array_push($keys, '${'. $key .'}');
-				array_push($data, $value);
-			}
-
-			// Replace all of the variables with the variable values.
-			$template = str_replace($keys, $data, $template);
-
-			// Save config file
-			file_put_contents($config_file, $template);
-			@chmod($config_file, octdec($conf->global->MAIN_UMASK));
+			create_file_from_template($config_file, $template_file, $hooks);
 		}
 
 		// Create .htaccess file
 		$htaccess_file = dol_buildpath('visualquery').'/src/.htaccess';
 
 		if (! file_exists($htaccess_file)) {
-			// Read our template in as a string.
-			$file = dol_buildpath('visualquery/tpl/.htaccess.tpl');
-			$template = file_get_contents($file);
-			$keys = array();
-			$data = array();
+			$template_file = dol_buildpath('visualquery/tpl/.htaccess.tpl');
 			$hooks = array(
 				'visual_query_dir'  => dol_buildpath('visualquery/src', 1)
 			);
-			foreach($hooks as $key => $value) {
-				array_push($keys, '${'. $key .'}');
-				array_push($data, $value);
-			}
-
-			// Replace all of the variables with the variable values.
-			$template = str_replace($keys, $data, $template);
-
-			// Save config file
-			file_put_contents($htaccess_file, $template);
-			@chmod($htaccess_file, octdec($conf->global->MAIN_UMASK));
+			create_file_from_template($htaccess_file, $template_file, $hooks);
 		}
 
 		return parent::init($options);

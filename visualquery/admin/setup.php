@@ -6,6 +6,9 @@ include_once '../autoload.php';
 // Load Dolibase SetupPage class
 dolibase_include_once('core/pages/setup.php');
 
+// Load custom lib
+dol_include_once('visualquery/lib/functions.php');
+
 // Create Setup Page using Dolibase
 $page = new SetupPage('Setup', '$user->admin', true, false, false);
 
@@ -18,11 +21,8 @@ if ($action == 'save')
 {
 	global $dolibarr_main_db_host, $dolibarr_main_db_user, $dolibarr_main_db_pass, $dolibarr_main_db_name;
 
-	// Read our template in as a string.
-	$file = dol_buildpath('visualquery/tpl/config.php');
-	$template = file_get_contents($file);
-	$keys = array();
-	$data = array();
+	$config_file = dol_buildpath('visualquery').'/src/config.php';
+	$template_file = dol_buildpath('visualquery/tpl/config.php');
 	$hooks = array(
 		'db_host'  => $dolibarr_main_db_host,
 		'db_user'  => $dolibarr_main_db_user,
@@ -31,17 +31,7 @@ if ($action == 'save')
 		'username' => GETPOST('username', 'alpha'),
 		'password' => GETPOST('password', 'alpha')
 	);
-	foreach($hooks as $key => $value) {
-		array_push($keys, '${'. $key .'}');
-		array_push($data, $value);
-	}
-
-	// Replace all of the variables with the variable values.
-	$template = str_replace($keys, $data, $template);
-
-	// Save config file
-	$config_file = dol_buildpath('visualquery').'/src/config.php';
-	file_put_contents($config_file, $template);
+	create_file_from_template($config_file, $template_file, $hooks);
 }
 
 // --- End actions
