@@ -78,7 +78,7 @@ class modVisualQuery extends DolibaseModule
 			$keys = array();
 			$data = array();
 			$hooks = array(
-				'visual_query_dir'  => DOL_URL_ROOT.'/custom/visualquery/src'
+				'visual_query_dir'  => dol_buildpath('visualquery/src', 1)
 			);
 			foreach($hooks as $key => $value) {
 				array_push($keys, '${'. $key .'}');
