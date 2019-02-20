@@ -1,5 +1,6 @@
 <?php
 Flight::route('GET /', array('Dashboard', 'index'));
+Flight::route('GET /index.php', array('Dashboard', 'index'));
 Flight::route('GET /home', array('Dashboard', 'index'));
 Flight::route('GET /login', array('Login', 'index'));
 Flight::route('POST /login', array('Login', 'loginuser'));

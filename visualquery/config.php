@@ -9,7 +9,7 @@ global $dolibase_config;
 $dolibase_config['module'] = array(
 	'name'                      => 'VisualQuery',
 	'desc'                      => 'Module867383850Desc',
-	'version'                   => '1.1',
+	'version'                   => '1.2',
 	'number'                    => '867383850',
 	'family'                    => 'other',
 	'position'                  => 500,

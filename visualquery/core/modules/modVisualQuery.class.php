@@ -25,7 +25,7 @@ class modVisualQuery extends DolibaseModule
 
 		// Add menus
 		$menu_title = compare_version(DOL_VERSION, '<' ,'7.0.0') ? "VisualQuery" : "VisualQueryWithIcon";
-		$this->addLeftMenu($this->config['other']['top_menu_name'], "visualquery", $menu_title, "/visualquery/src/", '$user->rights->visualquery->use', '1', 100, '_blank');
+		$this->addLeftMenu($this->config['other']['top_menu_name'], "visualquery", $menu_title, "/visualquery/src/index.php", '$user->rights->visualquery->use', '1', 100, '_blank');
 	}
 
 	/**
